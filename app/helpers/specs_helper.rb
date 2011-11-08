@@ -7,7 +7,7 @@ module SpecsHelper
   		return f.text_field :value, :index => nil
   	when "List" then
   	  collection = productspec.spec.spec_default.split(";")
-  		return f.select :value, collection, :index => nil
+  		return f.select :value, collection, {}, :index => nil
   	else
   		return f.text_field :value, :index => nil
   	end
