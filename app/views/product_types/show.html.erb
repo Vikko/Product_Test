@@ -1,0 +1,13 @@
+Product type
+<p>
+  <b>Name:</b>
+  <%=h @product_type.name %>
+</p>
+<% @product_type.specs.each do |spec| %>
+<%= spec.name %><br/>
+<%end %>
+
+<%= link_to 'Edit', edit_product_type_path(@product_type) %> |
+<%= link_to 'Back', product_types_path %>
+
+<%=h params.inspect %>

@@ -1,0 +1,79 @@
+<% form_for(@product_type) do |f| %>
+<script language='javascript'> 
+	function getselected(from, to)
+	{
+		var existing = new Array;
+		var newentries = new Array;
+		k = 0 ;
+		for (i=0;i<to.length;i++) { //add current values to an array
+			existing[k] = to[i].value;
+			k++
+		}
+		n = 0;
+		for (i=0;i<from.length;i++){	//loop the new select box
+			var add = true;				//add by default
+			if (from[i].selected === true) { //if the value is selected 
+				for (j=0;j<existing.length;j++){		//loop the array
+					if (existing[j]==from[i].value){	//check if the new selectbox value is in the array
+						add = false;	//set save flag for not saving
+					}
+				}					
+			} else {					//if value is not selected
+				add = false;			//set save flag for not saving
+			}
+			
+			if (add){							//if save flag is set
+				newentries[n] = from[i].value;		//save the value to the array
+				n++;
+			}
+		}
+		return(newentries.join(","));				//remove array of values to be added
+	}
+	
+	function removeselected(remove)
+	{
+		var options = new Array;
+		k = 0 ;
+		for(j=0;j<remove.length;j++){			//loop the select box
+			if (remove[j].selected === true){ // if the value is selected
+				options[k] = remove[j].value    //add value to array
+				k++;
+			}
+		}
+		return(options.join(","));				//return array of values to be removed
+	}
+	
+
+</script>
+  <p>
+	<%= f.label "Display as:" %>
+	<%= f.text_field :name %>
+  </p>
+  <% unless @product_type.new_record? %>
+  <table><tr>
+	<th><%= f.label "All specs" %></th><th/><th><%= f.label "Default specs" %></th><th/><th><%= f.label "Required specs" %></th>
+	</tr><tr>
+	<td>
+		<%= grouped_collection_select nil, nil, SpecCategory.all, :specs, :name, :id, :name, {}, { :id => "all_spec_ids", :multiple => true, :size => 8} %>	
+	</td>
+	<td> <%= link_to_remote ">", :url => {:action => "add_default_specs", :id => @product_type.id }, :with => "'defspecs='+getselected(all_spec_ids,default_spec_ids)" %> <br/> 
+		<%= link_to_remote "<", :url => {:action => "remove_default_specs", :id => @product_type.id }, :with => "'defspecs='+removeselected(default_spec_ids)" %> </td> </td>
+	<td>
+	<div id="defaultspecs">
+	<%= render :partial => "default_specs", :locals => {:f => f } %>
+	</div>
+	</td>
+	<td><%= link_to_remote ">", :url => {:action => "add_required_specs", :id => @product_type.id }, :with => "'reqspecs='+getselected(default_spec_ids,required_default_spec_ids)" %> <br/> 
+		<%= link_to_remote "<", :url => {:action => "remove_required_specs", :id => @product_type.id }, :with => "'reqspecs='+removeselected(required_default_spec_ids)" %> </td>
+	<td>
+	<div id="required_defaultspecs">
+	<%= render :partial => "req_default_specs" %>
+	</div>
+	</td>
+	</tr>
+  </table>
+<% end %>
+  <p>
+    <%= f.submit 'Save' %>
+  </p>
+<% end %>

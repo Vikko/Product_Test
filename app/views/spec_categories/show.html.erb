@@ -1,0 +1,9 @@
+<%=h @spec_category.inspect %>
+<p>
+  <b>Name:</b>
+  <%=h @spec_category.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_spec_category_path(@spec_category) %> |
+<%= link_to 'Back', spec_categories_path %>

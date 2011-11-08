@@ -1,0 +1,9 @@
+<%=h @spec.inspect %>
+<p>
+  <b>Name:</b>
+  <%=h @spec.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_spec_path(@spec) %> |
+<%= link_to 'Back', specs_path %>

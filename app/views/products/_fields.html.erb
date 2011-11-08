@@ -1,0 +1,20 @@
+<%= f.error_messages %>
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :price %><br />
+  <%= f.text_field :price %>
+</p>
+<p>
+  <%= f.label "Product Type" %>
+  <%= f.select :product_type_id, ProductType.all.collect {|p| [p.name, p.id]}, {:prompt => "Select type"}, { :onchange => 
+    remote_function(
+         :url => {:controller => 'products', :action => 'get_default_specs', :id => params[:id]}, :with => "'product_type_id='+this.value" ) } %>
+<%= link_to "Edit", product_types_path %>
+
+<div id="specs">
+	<%= render :partial => "product_spec", :collection => @product.product_specs%>
+</div>
+<%= add_product_spec_link "Add a specification" %> | <%= link_to "Edit specs list", specs_path %>

@@ -1,0 +1,23 @@
+product #lijst ALLE producten
+	has_many product_specs
+	belongs_to product_type
+	
+product_spec #-- koppelt product aan spec en geeft value mee --
+
+	spec_id
+	value
+	
+	<%= spec_id dropdown, value invulbaar %>
+
+product_type
+	has_many :products
+	has_many :specs
+	
+	type
+	spec
+
+spec #lijst alle mogelijke specificaties
+	has_many product_specs
+	
+	id
+	name

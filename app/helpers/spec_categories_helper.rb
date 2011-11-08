@@ -1,0 +1,2 @@
+module SpecCategoriesHelper
+end

@@ -1,0 +1,23 @@
+<% form_for(@spec) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+	<%= f.label "Spec category" %>
+	<%= f.select :spec_category_id, SpecCategory.all.collect {|sc| [sc.name, sc.id]} %>
+  </p>
+  <p>
+  	<%= f.label "Spec value type" %>
+	<%= f.select :spec_type, Spec::TYPES.collect{|x,y| [y,x]} %>
+  </p>
+  <p>
+	<%= f.label "Default value"%>
+	<%= f.text_field :spec_default %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
