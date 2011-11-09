@@ -3,12 +3,14 @@
 <table>
   <tr>
     <th>Name</th>
+	<th>Brand</th>
     <th>Price</th>
   </tr>
 
 <% @products.each do |product| %>
   <tr>
     <td><%=h product.name %></td>
+	<td><%=h product.brand %></td>
     <td><%=h product.price %></td>
     <td><%= link_to 'Show', product %></td>
     <td><%= link_to 'Edit', edit_product_path(product) %></td>

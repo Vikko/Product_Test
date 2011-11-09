@@ -32,31 +32,14 @@ class ProductsController < ApplicationController
     unless params[:product_type_id].blank?
       @product_type = ProductType.find(params[:product_type_id])
       @product_type.default_specs.each do |ds|
-        collection << @product.product_specs.build(:spec_id => ds.spec_id, :required => ds.required?)
-      end
-    end
-    
-    collection.detect do |ps| #remove data from collection if product_type changed (dont show)
-      unless ps.product.blank?
-        unless ps.product.product_type == @product_type
-          ps.destroy
+        unless @product.specification_ids.include?ds.specification_id
+          collection << @product.product_specs.create(:specification_id => ds.specification_id, :required => ds.required?)
         end
-      else 
-        ps
       end
-    end
-    
-    @product.product_specs.each do |ps|
-      collection.each do |itemInCollection|
-        if (itemInCollection == ps)
-  
-        end
-        ps.destroy
-      end 
     end
       
     render :update do |page|
-      page.replace_html 'specs', :partial => 'product_spec', :collection => collection
+      page.replace_html 'specs', :partial => 'product_spec', :collection => collection, :with => 'new=t;'
     end
     
   end

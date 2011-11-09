@@ -13,12 +13,12 @@ ActiveRecord::Schema.define(:version => 20111103123531) do
 
   create_table "default_specs", :force => true do |t|
     t.integer "product_type_id"
-    t.integer "spec_id"
+    t.integer "specification_id"
     t.boolean "required"
   end
 
   create_table "product_specs", :force => true do |t|
-    t.integer  "spec_id"
+    t.integer  "specification_id"
     t.string   "value"
     t.integer  "product_id"
     t.datetime "created_at"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20111103123531) do
     t.datetime "updated_at"
   end
 
-  create_table "specs", :force => true do |t|
+  create_table "specifications", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

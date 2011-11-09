@@ -1,21 +1,9 @@
 class DefaultSpec < ActiveRecord::Base
   belongs_to :product_type
-  belongs_to :spec
+  belongs_to :specification
   
-  validates_presence_of :spec_id, :product_type_id  
+  validates_presence_of :specification_id, :product_type_id  
     
   named_scope :product_type_id, lambda { |id| { :conditions => ['product_type_id == ?', id] } }
-  named_scope :spec_id, lambda { |id| { :conditions => ['spec_id == ?', id] } }
-  
-  def self.required?(pt,sp)
-    if s = self.product_type_id(pt).spec_id(sp).first
-      return s.required?
-    else
-      false
-    end
-  end
-  
-  def spec_name
-    self.spec.name
-  end
+  named_scope :specification_id, lambda { |id| { :conditions => ['specification_id == ?', id] } }  
 end

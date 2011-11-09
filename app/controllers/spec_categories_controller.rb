@@ -33,7 +33,7 @@ class SpecCategoriesController < ApplicationController
 
     respond_to do |format|
       if @spec_category.save
-        format.html { redirect_to(@spec_category, :notice => 'Spec was successfully created.') }
+        format.html { redirect_to(@spec_category, :notice => 'Specification category was successfully created.') }
         format.xml  { render :xml => @spec_category, :status => :created, :location => @spec_category }
       else
         format.html { render :action => "new" }
@@ -47,7 +47,7 @@ class SpecCategoriesController < ApplicationController
 
     respond_to do |format|
       if @spec_category.update_attributes(params[:spec_category])
-        format.html { redirect_to(@spec_category, :notice => 'Spec was successfully updated.') }
+        format.html { redirect_to(@spec_category, :notice => 'Specification category was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

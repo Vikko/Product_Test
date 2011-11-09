@@ -6,12 +6,12 @@
 	<th>Category</th>
   </tr>
 
-<% @specs.each do |spec| %>
+<% @specifications.each do |spec| %>
   <tr>
     <td><%=h spec.name %></td>
-    <td><%=h spec.spec_category.name %></td>
+    <td><%=h spec.specification_category.name %></td>
     <td><%= link_to 'Show', spec %></td>
-    <td><%= link_to 'Edit', edit_spec_path(spec) %></td>
+    <td><%= link_to 'Edit', edit_specification_path(spec) %></td>
     <td><%= link_to 'Destroy', spec, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -19,4 +19,4 @@
 
 <br />
 
-<%= link_to 'New spec', new_spec_path %> | <%= link_to "To products", products_path %>
+<%= link_to 'New spec', new_specification_path %> | <%= link_to "To products", products_path %>

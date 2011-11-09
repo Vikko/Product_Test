@@ -72,8 +72,8 @@ class ProductTypesController < ApplicationController
   end
   
   def id_to_specs(product_type) #change the spec ID to the actual spec
-    product_type.specs.each do |s|
-      s = Spec.find(s)
+    product_type.specifications.each do |s|
+      s = Specification.find(s)
     end
   end
   
@@ -99,7 +99,7 @@ class ProductTypesController < ApplicationController
   def categorize(defaultspecs)
     categories = []
     defaultspecs.each do |ds|
-      categories << ds.spec.spec_category
+      categories << ds.specification.spec_category
     end
     categories.uniq!
     categorized = Hash.new
@@ -107,8 +107,8 @@ class ProductTypesController < ApplicationController
       categories.each do |cat|
         specs = []
         defaultspecs.each do |ds|
-          if ds.spec.spec_category == cat
-            specs << [ds.spec.name, ds.spec.id]
+          if ds.specification.spec_category == cat
+            specs << [ds.specification.name, ds.specification.id]
           end
         end
         categorized[cat.name] = specs
@@ -121,7 +121,7 @@ class ProductTypesController < ApplicationController
     add_defspecs = params[:defspecs].split(",")
     
     add_defspecs.each do |defspec|
-      DefaultSpec.create(:product_type_id => params[:id], :spec_id => defspec, :required => false)
+      DefaultSpec.create(:product_type_id => params[:id], :specification_id => defspec, :required => false)
     end
     update_fields
   end
@@ -129,7 +129,7 @@ class ProductTypesController < ApplicationController
   def remove_default_specs
     rem_defspecs = params[:defspecs].split(",")
     rem_defspecs.each do |defspec|
-      DefaultSpec.product_type_id(params[:id]).spec_id(defspec).first.destroy
+      DefaultSpec.product_type_id(params[:id]).specification_id(defspec).first.destroy
     end
     update_fields
   end
@@ -137,7 +137,7 @@ class ProductTypesController < ApplicationController
   def add_required_specs
     add_required_specs = params[:reqspecs].split(",")
      add_required_specs.each do |reqspec|
-       ds = DefaultSpec.product_type_id(params[:id]).spec_id(reqspec).first
+       ds = DefaultSpec.product_type_id(params[:id]).specification_id(reqspec).first
        ds.required = true
        ds.save
      end
@@ -147,7 +147,7 @@ class ProductTypesController < ApplicationController
   def remove_required_specs
     rem_required_specs = params[:reqspecs].split(",")
     rem_required_specs.each do |reqspec|
-      ds = DefaultSpec.product_type_id(params[:id]).spec_id(reqspec).first
+      ds = DefaultSpec.product_type_id(params[:id]).specification_id(reqspec).first
       ds.required = false
       ds.save
     end

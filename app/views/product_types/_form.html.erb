@@ -54,7 +54,7 @@
 	<th><%= f.label "All specs" %></th><th/><th><%= f.label "Default specs" %></th><th/><th><%= f.label "Required specs" %></th>
 	</tr><tr>
 	<td>
-		<%= grouped_collection_select nil, nil, SpecCategory.all, :specs, :name, :id, :name, {}, { :id => "all_spec_ids", :multiple => true, :size => 8} %>	
+		<%= grouped_collection_select nil, nil, SpecCategory.all, :specifications, :name, :id, :name, {}, { :id => "all_spec_ids", :multiple => true, :size => 8} %>	
 	</td>
 	<td> <%= link_to_remote ">", :url => {:action => "add_default_specs", :id => @product_type.id }, :with => "'defspecs='+getselected(all_spec_ids,default_spec_ids)" %> <br/> 
 		<%= link_to_remote "<", :url => {:action => "remove_default_specs", :id => @product_type.id }, :with => "'defspecs='+removeselected(default_spec_ids)" %> </td> </td>

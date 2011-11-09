@@ -3,16 +3,21 @@ Product
   <b>Name:</b>
   <%=h @product.name %>
 </p>
-
+<p>
+  <b>Brand:</b>
+  <%=h @product.brand %>
+</p>
 <p>
   <b>Price:</b>
   <%=h @product.price %>
 </p>
 <% @product.product_specs.each do |product_spec|%>
 	<p>
- 	<b><%= product_spec.spec.name %>:</b>  <%= product_spec.value %>
+ 	<b><%= product_spec.specification.name %>:</b>  <%= product_spec.value %>
 	</p>
 <% end %>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
+<%= params.inspect%>

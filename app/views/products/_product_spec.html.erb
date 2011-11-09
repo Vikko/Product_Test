@@ -2,9 +2,16 @@
 <table>
 <% fields_for "product[spec_attributes][]", product_spec do |product_spec_form| %>
 <tr>
-    <td>Product Spec:</td><td><%= product_spec_form.collection_select :spec_id, Spec.all, :id, :name, {}, {:index => nil} %></td>
+    <td>Product Specification:</td>
+	<td>
+		<% if product_spec.specification_id.blank? %>
+			<%= product_spec_form.collection_select :specification_id, Specification.not_attached_with(@product), :id, :name, {}, {:index => nil}%>
+		<% else %>
+			<%= product_spec_form.collection_select :specification_id, Specification.all, :id, :name, {}, {:index => nil, :disabled => true} %>
+		<% end %>
+	</td>
   	<td>Value:</td><td>
-		<%= find_inputfield(product_spec.spec.type, product_spec_form, product_spec) %>
+		<%= find_inputfield(product_spec.specification.type, product_spec_form, product_spec) %>
 		<%= product_spec_form.hidden_field :required, :index => nil %></td>
 	<% if product_spec.new_record? %>
 		<td>

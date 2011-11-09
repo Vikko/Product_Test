@@ -4,6 +4,11 @@
   <%= f.text_field :name %>
 </p>
 <p>
+  <%= f.label :brand %><br />
+  <%= f.text_field :brand %>
+</p>
+
+<p>
   <%= f.label :price %><br />
   <%= f.text_field :price %>
 </p>
@@ -16,7 +21,7 @@
 	<%= link_to "Edit", product_types_path %>
 
 	<div id="specs">
-		<%= render :partial => "product_spec", :collection => @product.product_specs%>
+		<%= render :partial => "product_spec", :collection => @product.product_specs %>
 	</div>
-	<%= add_product_spec_link "Add a specification" %> | <%= link_to "Edit specs list", specs_path %>
+	<%= add_product_spec_link "Add a specification" %> | <%= link_to "Edit specs list", specifications_path %>
 <% end %>

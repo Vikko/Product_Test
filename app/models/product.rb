@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   has_many :product_specs, :dependent => :destroy
-  has_many :specs, :through => :product_specs
+  has_many :specifications, :through => :product_specs
   belongs_to :product_type
   after_update :save_specs
   

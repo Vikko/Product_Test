@@ -1,4 +1,4 @@
-<% form_for(@spec) do |f| %>
+<% form_for(@specification) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -10,8 +10,8 @@
 	<%= f.select :spec_category_id, SpecCategory.all.collect {|sc| [sc.name, sc.id]} %>
   </p>
   <p>
-  	<%= f.label "Spec value type" %>
-	<%= f.select :spec_type, Spec::TYPES.collect{|x,y| [y,x]} %>
+  	<%= f.label "Specification value type" %>
+	<%= f.select :spec_type, Specification::TYPES.collect{|x,y| [y,x]} %>
   </p>
   <p>
 	<%= f.label "Default value"%>
