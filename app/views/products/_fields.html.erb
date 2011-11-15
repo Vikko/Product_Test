@@ -15,13 +15,11 @@
 <% unless @product.new_record?%>
 	<p>
 	  <%= f.label "Product Type" %>
-	  <%= f.select :product_type_id, ProductType.all.collect {|p| [p.name, p.id]}, {:prompt => "Select type"}, { :onchange => 
-	    remote_function(
-	         :url => {:controller => 'products', :action => 'get_default_specs', :id => params[:id]}, :with => "'product_type_id='+this.value" ) } %>
+	  <%= f.select :product_type_id, ProductType.all.collect {|p| [p.name, p.id]}, {:prompt => "Select type"}, { :onchange => "this.form.submit();" } %>
 	<%= link_to "Edit", product_types_path %>
 
 	<div id="specs">
 		<%= render :partial => "product_spec", :collection => @product.product_specs %>
 	</div>
-	<%= add_product_spec_link "Add a specification" %> | <%= link_to "Edit specs list", specifications_path %>
+	<%= link_to "Add a specification", :controller => "products", :action => "add_product_spec_link", :id => @product.id %> | <%= link_to "Edit specs list", specifications_path %>
 <% end %>

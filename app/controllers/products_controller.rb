@@ -1,4 +1,10 @@
 class ProductsController < ApplicationController
+  before_filter :get_product, :only => [:show, :remove_product_spec, :add_product_spec_link, :edit, :update, :destroy]
+  
+  def get_product
+    @product = Product.find(params[:id])
+  end
+
   def index
     @products = Product.all
 
@@ -9,8 +15,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
-
     respond_to do |format|
       format.html
       format.xml  { render :xml => @product }
@@ -26,30 +30,22 @@ class ProductsController < ApplicationController
     end
   end
   
-  def get_default_specs
-    @product = Product.find(params[:id])
-    collection = []
-    unless params[:product_type_id].blank?
-      @product_type = ProductType.find(params[:product_type_id])
-      @product_type.default_specs.each do |ds|
-        unless @product.specification_ids.include?ds.specification_id
-          collection << @product.product_specs.create(:specification_id => ds.specification_id, :required => ds.required?)
-        end
-      end
-    end
-      
-    render :update do |page|
-      page.replace_html 'specs', :partial => 'product_spec', :collection => collection, :with => 'new=t;'
-    end
-    
+  def add_product_spec_link
+    ProductSpec.create(:product_id => params[:id])
+    render :edit
   end
 
   def edit
-    @product = Product.find(params[:id])
+  end
+  
+  def remove_product_spec
+    @productspec = ProductSpec.find(params[:product_spec_id])
+    @productspec.destroy
+    render :edit
   end
 
   def create
-    @product = Product.new(params[:product])
+    @product = Product.create(params[:product])
 
     respond_to do |format|
       if @product.save
@@ -63,11 +59,12 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
-
     respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
+        format.html do
+          flash[:notice] = "Product was successfully updated!"
+          render :action => "edit"
+        end
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -77,9 +74,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
-
     respond_to do |format|
       format.html { redirect_to(products_url) }
       format.xml  { head :ok }

@@ -7,7 +7,7 @@ class Specification < ActiveRecord::Base
   
   belongs_to :spec_category
   
-  named_scope :not_attached_with, lambda{ |product| {:conditions => ["id NOT IN (?)", product.specification_ids]} }
+  named_scope :not_attached_with, lambda{ |product| return {} unless product.specification_ids.any?; {:conditions => ["id NOT IN (?)", product.specification_ids]} }
   
   
   TYPES = {

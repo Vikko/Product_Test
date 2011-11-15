@@ -5,6 +5,7 @@ class CreateProductSpecs < ActiveRecord::Migration
       t.string :value
       t.integer :product_id
       t.boolean :required
+      t.string :unit
       t.timestamps
     end
   end

@@ -11,7 +11,7 @@ product_spec #-- koppelt product aan spec en geeft value mee --
 
 product_type
 	has_many :products
-	has_many :specs
+	has_many :specifications
 	
 	type
 	spec
@@ -21,3 +21,26 @@ spec #lijst alle mogelijke specificaties
 	
 	id
 	name
+	
+	
+==functionality==	
+Product
+ - should NOT have a type on creation
+ - should have NO products with ID nil
+ - should be able to create product_specs
+ - should validate incorrect price to currency conversion
+
+ProductType
+ - should be able to create default_specs
+
+SpecCategory
+
+Specification
+
+DefaultSpec
+
+ProductSpec
+ - should have and product_id
+ - should have spec_id
+ - should be destroyed if product or spec are deleted
+

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20111103123531) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "required"
+    t.string   "unit"
   end
 
   create_table "product_types", :force => true do |t|
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20111103123531) do
     t.integer  "spec_category_id"
     t.integer  "spec_type"
     t.string   "spec_default"
+    t.string   "units"
   end
 
 end

@@ -5,6 +5,7 @@ class CreateSpecs < ActiveRecord::Migration
       t.integer :spec_type
       t.integer :spec_category_id
       t.string  :spec_default
+      t.string  :units
       t.timestamps
     end
   end
