@@ -1,0 +1,15 @@
+<%=h @specification.inspect %>
+<p><b>Name:</b>
+  <%=h @specification.name %>
+</p>
+<p>
+  <b>Spec category:</b>
+  <%=h @specification.spec_category.name %>
+</p>
+<p>
+  <b>Spec type:</b>
+  <%=h Specification::TYPES[@specification.spec_type] %>
+</p>
+
+<%= link_to 'Edit', edit_specification_path(@specification) %> |
+<%= link_to 'Back', specifications_path %>
